@@ -15,9 +15,9 @@ def main():
         with col1:
             st.image(img, width=50)
         with col2:
-            st.markdown("### Choose wisely, you must — Job Offer Scorecard")
+            st.markdown("### Choose Wisely, You Must!")
     else:
-        st.markdown("### Choose wisely, you must — Job Offer Scorecard")
+        st.markdown("### Choose wisely, You Must!")
     
     st.markdown("Score and compare job offers based on what matters most to you.")
 
