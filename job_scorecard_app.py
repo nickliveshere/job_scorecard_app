@@ -17,9 +17,9 @@ def main():
         with col2:
             st.markdown("### Choose Wisely, You Must!")
     else:
-        st.markdown("### Choose wisely, You Must!")
+        st.markdown("### Choose Wisely, You Must!")
     
-    st.markdown("Score and compare job offers based on what matters most to you.")
+    st.markdown("Score and compare job offers based on what matters to you.")
 
     # Sidebar: Offer names
     st.sidebar.subheader("Offers")
@@ -31,11 +31,11 @@ def main():
 
     # Sidebar: Perspective Weights
     st.sidebar.subheader("Perspective Weights")
-    st.sidebar.markdown("<small>Must total 100%</small>", unsafe_allow_html=True)
+    st.sidebar.markdown("<small>Must total 100</small>", unsafe_allow_html=True)
     scorecard = {
-        "Salary": ["Base Salary"],
-        "Growth": ["Development Opportunities"],
-        "Culture": ["Work Environment"],
+        "Money": ["Salary + Bonus"],
+        "Growth": ["Growth Opportunities"],
+        "Culture": ["Company Culture"],
         "Flexibility": ["Remote & Hours"],
         "Stability": ["Company Outlook"]
     }
