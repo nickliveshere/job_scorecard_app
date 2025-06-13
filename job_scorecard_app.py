@@ -4,7 +4,16 @@ from PIL import Image
 import os
 
 # Page configuration must come first
-st.set_page_config(page_title="Job Offer Scorecard", layout="wide")
+st.set_page_config(page_title="Job Offer Scorecard", layout="centered")
+
+# Hide sidebar toggler and main menu for a single-stream layout
+st.markdown("""
+<style>
+  [data-testid="collapsedControl"] { display: none !important; }
+  #MainMenu { visibility: hidden !important; }
+  footer { visibility: hidden !important; }
+</style>
+""", unsafe_allow_html=True)
 
 def main():
     # Load and display Baby Yoda next to the title
@@ -15,38 +24,40 @@ def main():
         with col1:
             st.image(img, width=50)
         with col2:
-            st.markdown("### Choose Wisely, You Must!")
+            st.markdown("### Choose wisely, you must")
     else:
-        st.markdown("### Choose Wisely, You Must!")
+        st.markdown("### Choose wisely, you must")
     
-    st.markdown("Score and compare job offers based on what matters to you.")
+    st.markdown("Score and compare job offers based on what matters most to you.")
 
-    # Sidebar: Offer names
-    st.sidebar.subheader("Offers")
-    num_offers = st.sidebar.number_input("How many offers?", min_value=1, max_value=5, value=2)
+    # Define scoring criteria
+    scorecard = {
+        "Salary": ["Base Salary"],
+        "Growth": ["Development Opportunities"],
+        "Culture": ["Work Environment"],
+        "Flexibility": ["Remote and Leave"],
+        "Stability": ["Company Outlook"]
+    }
+
+    # Offers inline
+    st.markdown("### Offers")
+    num_offers = st.number_input("How many offers?", min_value=1, max_value=5, value=2)
     offer_names = [
-        st.sidebar.text_input(f"Offer {i+1} Name", f"Offer {chr(65+i)}")
+        st.text_input(f"Offer {i+1} Name", f"Offer {chr(65+i)}")
         for i in range(num_offers)
     ]
 
-    # Sidebar: Perspective Weights
-    st.sidebar.subheader("Perspective Weights")
-    st.sidebar.markdown("<small>Must total 100</small>", unsafe_allow_html=True)
-    scorecard = {
-        "Money": ["Salary + Bonus"],
-        "Growth": ["Growth Opportunities"],
-        "Culture": ["Company Culture"],
-        "Flexibility": ["Remote & Hours"],
-        "Stability": ["Company Outlook"]
-    }
+    # Perspective Weights inline
+    st.markdown("### Perspective Weights")
+    st.markdown("<small>Must total 100%</small>", unsafe_allow_html=True)
     weights = {}
     total_weight = 0
     for category in scorecard:
-        w = st.sidebar.slider(category, min_value=0, max_value=100, value=20, key=f"weight_{category}")
+        w = st.slider(category, min_value=0, max_value=100, value=20, key=f"weight_{category}")
         weights[category] = w
         total_weight += w
     if total_weight != 100:
-        st.sidebar.error(f"Total must equal 100% (currently {total_weight}%)")
+        st.error(f"Total must equal 100% (currently {total_weight}%)")
         return
 
     # Main scoring logic
